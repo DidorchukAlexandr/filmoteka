@@ -1,0 +1,14 @@
+import './api-service';
+import './trailer';
+import './popular-movies';
+import './search-movies';
+import './eventListeners';
+import './local-registration';
+import './modal-auth';
+import './contributors-modal';
+import './header';
+import './modal-movie-render';
+// import './range-slider';
+import './filters';
+// import './localstorage_movies';
+import './add-filters-btn';

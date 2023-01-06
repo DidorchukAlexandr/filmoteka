@@ -1,0 +1,248 @@
+/*html {
+  cursor: url(../images/donkey.png), auto;
+}*/
+
+.modal-auth__backdrop {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.scroll-auth {
+  position: relative;
+  overflow: hidden;
+}
+
+.form__auth {
+  width: 70%;
+  z-index: 4;
+  position: absolute;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 10px 10px 30px 30px rgba(235, 231, 231, 0.5);
+  @include mobile {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  @include tablert {
+    max-width: 500px;
+  }
+}
+
+.form__auth__wrapper {
+  width: 100%;
+  height: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+
+  padding: 20px;
+  padding-bottom: 30px;
+  padding-top: 30px;
+
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+      25deg,
+      var(--color-text-footer),
+      var(--color-fon-footer),
+      var(--color-modal)
+    )
+    1;
+  background: var(--color-modal);
+  color: var(--color-btn-white);
+}
+
+.form__auth__header {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  border-image: linear-gradient(
+      25deg,
+      var(--color-text-footer),
+      var(--color-fon-footer),
+      var(--color-modal)
+    )
+    1;
+  background-clip: text;
+
+  @include tablert {
+    font-size: 13px;
+  }
+
+  @include desktop {
+    font-size: 15px;
+    font-weight: 900px;
+  }
+}
+
+.input__auth__cont {
+  width: 100%;
+  height: 90%;
+
+  float: left;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 30px;
+  background-color: var(--color-text-footer);
+}
+
+.input__auth__container {
+  width: 75%;
+  height: 100%;
+
+  float: left;
+}
+
+.input-auth {
+  width: 100%;
+  height: 40px;
+
+  padding-left: 10px;
+  margin-bottom: 20px;
+
+  background: rgba(250, 249, 249, 0.5);
+  font-family: Montserrat;
+  font-weight: 500;
+  color: var(--color-btn-white);
+  font-size: 14px;
+
+  border-bottom: 2px solid transparent;
+  border-top-left-radius: 2%;
+  border-top-right-radius: 2%;
+  border-image: linear-gradient(
+      25deg,
+      var(--color-text-footer),
+      var(--color-fon-footer),
+      var(--color-modal)
+    )
+    1;
+}
+
+.input-auth:hover,
+.input-auth:focus {
+  background: white;
+  color: var(--text-color);
+  display: inline-block;
+  box-shadow: 0 14px 28px rgba(245, 242, 242, 0.25),
+    0 10px 10px rgba(250, 248, 248, 0.22);
+}
+
+.button__auth {
+  width: 100%;
+  height: 10%;
+
+  color: var(--text-color);
+
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.button__auth__login,
+.button__auth__register,
+.button__auth__logout {
+  width: 50%;
+  height: 40px;
+  float: left;
+
+  background: transparent;
+  color: inherit;
+  background-color: var(--text-ganre-color);
+
+  font-family: Montserrat;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 10px;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include tablert {
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  @include desktop {
+    font-weight: 900;
+    font-size: 14px;
+  }
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.visually-hidden-backdrop {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.auth__btn-close {
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+
+  @include tablert {
+    font-size: 18px;
+    top: 6px;
+    right: 6px;
+  }
+
+  @include desktop {
+    font-size: 20px;
+    top: 8px;
+    right: 8px;
+  }
+}
+
+.button-authent {
+  background-color: var(--color-modal);
+  text-align: center;
+  color: var(--color-btn-white);
+  border-color: var(--color-btn-white);
+}
+
+.button-authent:hover,
+.button-authent:focus {
+  background: white;
+  color: var(--text-color);
+  display: inline-block;
+  box-shadow: 0 14px 28px rgba(245, 242, 242, 0.25),
+    0 10px 10px rgba(250, 248, 248, 0.22);
+}
