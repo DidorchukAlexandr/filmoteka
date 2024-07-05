@@ -1,14 +1,18 @@
 import { fetchMoviesByFilters } from './api-service';
 import { allGenres } from './data/jenres.js';
 import { refs } from './DOM-elements';
-import { addPagination, paginationList, CURRENT_PAGE,
+import {
+  addPagination,
+  paginationList,
+  CURRENT_PAGE,
   TOTAL_PAGES,
-  CURRENT_STATE,} from './pagination';
+  CURRENT_STATE,
+} from './pagination';
 import { createMovieList } from './popular-movies';
 import { listEl } from './search-movies';
 import notFoundImg from '../images/library/gallery-nothing.jpg';
 import { addSpinner, removeSpinner } from './spinner';
-import {renderMoviesCard} from './templates/movieCard';
+import { renderMoviesCard } from './templates/movieCard';
 import { genresMaker } from './templates/genres-maker';
 export const FILTERS_PARAMS = 'filtersParams';
 const {
@@ -29,7 +33,7 @@ const {
 let screenWidth = container.offsetWidth;
 const initialFilterParams = {
   with_genres: '',
-  'primary_release_date.lte': '2022',
+  'primary_release_date.lte': '2024',
   'primary_release_date.gte': '1900',
   include_adult: false,
   sort_by: 'popularity.desc',
@@ -58,19 +62,22 @@ try {
     checkingForBeingAdultInput.setAttribute('checked', true);
   }
 
-  const selectedSortQuery = response["sort_by"];
+  const selectedSortQuery = response['sort_by'];
   sortFormOptions.forEach(option => {
     option.removeAttribute('selected');
     if (option.value === selectedSortQuery) {
       option.setAttribute('selected', true);
     }
   });
-  
+
   updateGenresButtonAppearance();
   // const selectedGenresArr = generalFilterParams.with_genres.split(',');
   // changeGenresButtonAppearance(selectedGenresArr);
   updateYearsButtonAppearance();
-  renderYearsInterval(generalFilterParams["primary_release_date.gte"], generalFilterParams["primary_release_date.lte"]);
+  renderYearsInterval(
+    generalFilterParams['primary_release_date.gte'],
+    generalFilterParams['primary_release_date.lte']
+  );
 } catch (err) {
   console.log("You haven't selected any filters yet");
 }
@@ -154,7 +161,7 @@ function onFormReset(evt) {
     generalFilterParams.with_genres = '';
     openFilterByGenresBtn.style.boxShadow =
       'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
-    
+
     const allInputs = document.querySelectorAll('.genres__wrap input');
     allInputs.forEach(input => {
       input.removeAttribute('checked');
@@ -170,7 +177,6 @@ function onFormReset(evt) {
     'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
   openFilterByYearsBtn.style.boxShadow =
     'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
-
 }
 
 function updateGenresParams(form) {
@@ -238,15 +244,12 @@ export async function renderFiltersResult(list) {
   });
 
   paginationList.currentPage = data.page;
-  paginationList.totalPages = data.total_pages;//--------------------------------------------------------------------------
+  paginationList.totalPages = data.total_pages; //--------------------------------------------------------------------------
   localStorage.setItem(
-        CURRENT_PAGE,
-        JSON.stringify(paginationList.currentPage)
-      );
-      localStorage.setItem(
-        TOTAL_PAGES,
-        JSON.stringify(paginationList.totalPages)
-      );
+    CURRENT_PAGE,
+    JSON.stringify(paginationList.currentPage)
+  );
+  localStorage.setItem(TOTAL_PAGES, JSON.stringify(paginationList.totalPages));
 
   genresMaker(movies);
   renderMoviesCard(movies);
@@ -284,11 +287,13 @@ function showFiltersByGenres() {
     const response = JSON.parse(localStorage.getItem(FILTERS_PARAMS));
     const selectedGenres = getArrayOfGenresFromString(response.with_genres);
     selectedGenres.map(genre => {
-      const input = document.querySelector(`.genres__wrap input[value="${genre}"]`);
+      const input = document.querySelector(
+        `.genres__wrap input[value="${genre}"]`
+      );
       if (input) {
         input.setAttribute('checked', true);
       }
-    })
+    });
   } catch (err) {
     const allInputs = document.querySelectorAll('.genres__wrap input');
     allInputs.forEach(input => {
@@ -307,13 +312,12 @@ function showFiltersByGenres() {
 function showFiltersByYears() {
   yearsForm.classList.remove('is-hidden');
 
-try {
-  const response = JSON.parse(localStorage.getItem(FILTERS_PARAMS));
-  const bottomYear = response["primary_release_date.gte"];
-  const topYear = response["primary_release_date.lte"];
-  lowerValueInput.value = bottomYear;
-  higerValueInput.value = topYear;
-    
+  try {
+    const response = JSON.parse(localStorage.getItem(FILTERS_PARAMS));
+    const bottomYear = response['primary_release_date.gte'];
+    const topYear = response['primary_release_date.lte'];
+    lowerValueInput.value = bottomYear;
+    higerValueInput.value = topYear;
   } catch (err) {
     console.log('smth went wrong:)');
   }
@@ -330,7 +334,7 @@ try {
 function closeGenresFilterOptions(evt) {
   if (!evt.target.closest('.genres__form')) {
     evt.preventDefault();
-    clickOutOfFiltersByGenres(); 
+    clickOutOfFiltersByGenres();
     filterForm.addEventListener('click', openFiltersOptions);
   }
 }
@@ -338,7 +342,7 @@ function closeGenresFilterOptions(evt) {
 function closeYearsFilterOptions(evt) {
   if (!evt.target.closest('.years__form')) {
     evt.preventDefault();
-    clickOutOfFiltersByYears(); 
+    clickOutOfFiltersByYears();
     filterForm.addEventListener('click', openFiltersOptions);
   }
 }
@@ -409,20 +413,20 @@ function updateYearsButtonAppearance() {
 
 export function fetchAndRenderMoviesByFilter() {
   try {
-  const filtersParams = JSON.parse(localStorage.getItem(FILTERS_PARAMS));
-  if (filtersParams === null) {
-    throw new Error();
-  }
-  paginationList.queryParams = { ...filtersParams };
-} catch (err) {
-  paginationList.queryParams = { ...generalFilterParams };
+    const filtersParams = JSON.parse(localStorage.getItem(FILTERS_PARAMS));
+    if (filtersParams === null) {
+      throw new Error();
+    }
+    paginationList.queryParams = { ...filtersParams };
+  } catch (err) {
+    paginationList.queryParams = { ...generalFilterParams };
   }
   try {
-  const currentPage = JSON.parse(localStorage.getItem(CURRENT_PAGE));
-  const totalPages = JSON.parse(localStorage.getItem(TOTAL_PAGES));
+    const currentPage = JSON.parse(localStorage.getItem(CURRENT_PAGE));
+    const totalPages = JSON.parse(localStorage.getItem(TOTAL_PAGES));
 
-  paginationList.currentPage = currentPage;
-  paginationList.totalPages = totalPages;
+    paginationList.currentPage = currentPage;
+    paginationList.totalPages = totalPages;
   } catch (err) {
     console.log('pagination error');
   }
@@ -445,12 +449,15 @@ export function fetchAndRenderMoviesByFilter() {
 function setCurrentFiltersSettingsToLocalStorage() {
   paginationList.currentState = 'filter';
   paginationList.currentPage = 1;
-  localStorage.setItem(CURRENT_PAGE, JSON.stringify(paginationList.currentPage));
+  localStorage.setItem(
+    CURRENT_PAGE,
+    JSON.stringify(paginationList.currentPage)
+  );
   localStorage.setItem(FILTERS_PARAMS, JSON.stringify(generalFilterParams));
-      localStorage.setItem(
-        CURRENT_STATE,
-        JSON.stringify(paginationList.currentState),
-      );
+  localStorage.setItem(
+    CURRENT_STATE,
+    JSON.stringify(paginationList.currentState)
+  );
 }
 
 function renderNotFoundPage() {
@@ -476,10 +483,10 @@ export function onClearFiltersButtonClick() {
   rangeValues.innerHTML = 'From 1900 to 2022';
   sortFormOptions.forEach(option => {
     option.removeAttribute('selected');
-    if (option.value === "popularity.desc") {
+    if (option.value === 'popularity.desc') {
       option.setAttribute('selected', true);
     }
-    });
+  });
   generalFilterParams = { ...initialFilterParams };
   lastFetchedParams = { ...initialFilterParams };
   deleteNotFoundPage();
@@ -526,7 +533,7 @@ function onInputChange(evt) {
 }
 
 function renderYearsInterval(min, max) {
-    if (+min === +max) {
+  if (+min === +max) {
     rangeValues.innerHTML = min;
   } else {
     rangeValues.innerHTML = `From ${min} to ${max}`;
@@ -538,11 +545,11 @@ function getArrayOfGenresFromString(string) {
 }
 
 export function resetFiltersButtonAppereance() {
-  openFilterByGenresBtn.textContent = "Genres";
+  openFilterByGenresBtn.textContent = 'Genres';
   openFilterByGenresBtn.style.boxShadow =
     'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
-  
-  openFilterByYearsBtn.textContent = "Years";
+
+  openFilterByYearsBtn.textContent = 'Years';
   openFilterByYearsBtn.style.boxShadow =
     'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
 }
@@ -570,15 +577,14 @@ export function resetFiltersForms() {
   const listOfForms = filterForm.querySelectorAll('form');
   listOfForms.forEach(form => form.reset());
   checkingForBeingAdultInput.removeAttribute('checked');
-  rangeValues.innerHTML = "From 1900 to 2022";
+  rangeValues.innerHTML = 'From 1900 to 2022';
 
-    sortFormOptions.forEach(option => {
+  sortFormOptions.forEach(option => {
     option.removeAttribute('selected');
-    if (option.value === "popularity.desc") {
+    if (option.value === 'popularity.desc') {
       option.setAttribute('selected', true);
     }
-    });
+  });
   generalFilterParams = { ...initialFilterParams };
   lastFetchedParams = { ...initialFilterParams };
 }
-
