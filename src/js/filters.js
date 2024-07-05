@@ -480,7 +480,7 @@ export function onClearFiltersButtonClick() {
   openFilterByGenresBtn.textContent = 'Genres';
   openFilterByYearsBtn.textContent = 'Years';
   checkingForBeingAdultInput.removeAttribute('checked');
-  rangeValues.innerHTML = 'From 1900 to 2022';
+  rangeValues.innerHTML = 'From 1900 to 2024';
   sortFormOptions.forEach(option => {
     option.removeAttribute('selected');
     if (option.value === 'popularity.desc') {
