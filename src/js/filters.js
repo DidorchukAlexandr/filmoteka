@@ -168,7 +168,7 @@ function onFormReset(evt) {
     });
   }
   if (isYearsForm) {
-    generalFilterParams['primary_release_date.lte'] = '2022';
+    generalFilterParams['primary_release_date.lte'] = '2024';
     generalFilterParams['primary_release_date.gte'] = '1900';
     openFilterByYearsBtn.style.boxShadow =
       'inset 0 0 8px 1px rgba(255, 0, 27, 0.6)';
